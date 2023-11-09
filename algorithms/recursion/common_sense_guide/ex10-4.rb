@@ -1,9 +1,9 @@
 def print_all_numbers(arr)
   arr.each do |ele|
-    if ele.class == Integer
-      puts ele
-    else
+    if ele.class == Array
       print_all_numbers(ele)
+    else
+      puts ele
     end
   end
 end
