@@ -44,8 +44,24 @@ class SortableArray
     quicksort!(left_index, pivot_index - 1)
     quicksort!(left_index + 1, right_index)
   end
+
+  def quickselect!(kth_lowest_value, left_index = 0, right_index = @array.size - 1)
+    return @array[left_index] if right_index - left_index <= 0
+  
+    pivot_index = partition!(left_index, right_index)
+    if kth_lowest_value < pivot_index
+      quickselect!(kth_lowest_value, left_index, pivot_index - 1)
+    elsif kth_lowest_value > pivot_index
+      quickselect!(kth_lowest_value, pivot_index + 1, right_index)
+    else
+      return @array[pivot_index]
+    end
+  end
 end
 
 arr = SortableArray.new([0, 5, 2, 1, 6, 3])
 arr.quicksort!
 p arr.array
+
+array = SortableArray.new([0, 50, 20, 10, 60, 30])
+p array.quickselect!(1) # find the second-to-lowest value
